@@ -1,0 +1,100 @@
+	<div class="ws-top">
+		<div class="ws-topnav">
+			<div class="container">
+				<div class="ws-tnavleft">
+					<span>
+						<i class="iconfont icon-xiaohuoche green"></i><span>上海<i class="iconfont icon-xiangxia grey"></i></span>
+					</span>
+					满百包邮（环郊内）
+					<div class="city">
+						<p>热门城市：</p>
+						<ul class="hot"></ul>
+						<p>选择城市：</p>
+						<ul class="select"></ul>
+					</div>
+				</div>
+				<div class="ws-tnavRight">
+					<ul>
+						<li><a href="#">[ 登录 ]</a>,<a href="#">[ 注册有惊喜 ]</a></li>
+						<li><span>果园公告</span><div></div></li>
+						<li><a href="">券卡兑换</a></li>
+						<li><span><i class="iconfont icon-shouji green"></i>手机果园</span><div></div></li>
+					</ul>
+				
+				</div>
+				<script type="text/javascript">
+					jQuery($=>{
+			//城市出现
+			$('.ws-tnavleft span').hover(function(){
+				$(this).css('background-color','white');
+				$('.city').css('display','block');
+			})
+
+			$('.city').hover(function(){
+
+			},function(){
+				$('.ws-tnavleft span').css('background-color','#eee');
+				$('.city').css('display','none');
+		
+			})
+
+
+			///城市选择
+			$.get('../api/region.php',function(res){
+				
+				let hot=res.map(item=>{
+					if(item.hot){
+					return `<li><a href="#">${item.name}</a></li>`}
+				});
+				$('.hot').html(hot);
+
+				let select=res.map(item=>{
+					 let list=`<li><a href="#">${item.name}</a>`;
+					if(item.regions===undefined){
+							return list;
+					}else{
+						list+=`<i class="iconfont icon-xiangxia"></i><div>`
+						item.regions.map(item=>{
+							list+=`<a>${item.name}</a>`;
+						});
+						list+=`</div>`;
+					}
+
+					list+=`</div></li>`;
+					return list;
+				});
+				$('.select').html(select);
+			
+				$('.select').on('click','a',function(){
+					var show = $(this).next().next().css('display');
+					$(this).next().next().css('display',show =='block'?'none':'block');			
+				});
+			})
+
+			///轮播图
+
+		});
+
+				</script>
+			</div>
+		</div>
+		<div class="ws-botnav">
+			<div class="container">
+				<img src="../img/main/logo.png" height="80px">
+				<ul>
+					<li><a href="../../index.html">首页<span>Home</span></a></li>
+					<li><a href="fruit.html">鲜果<span>Fruit</span></a></li>
+					<li><a href="">生鲜<span>Fresh</span></a></li>
+					<li><a href="">礼品<span>Gift</span></a></li>
+					<li><a href="">会员中心<span>VIP Club</span></a></li>
+				</ul>
+				<div class="mainCar">
+					<i class="iconfont icon-gouwuche1"></i><span>0</span>
+				</div>
+				<div class="search">
+					<input type="" name="" placeholder="新奇士澳洲橙子"><i class="iconfont icon-fangdajing"></i>
+					<span>热门：0</span>
+				</div>
+			</div>
+		</div>	
+	</div>

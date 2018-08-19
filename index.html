@@ -6,15 +6,187 @@
 	<link rel="stylesheet" type="text/css" href="src/lib/bootstrap-3.3.7/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="src/css/font/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="src/css/base.css">
+	<!-- <link rel="stylesheet" type="text/css" href="src/css/top.css"> -->
+	<link rel="stylesheet" type="text/css" href="src/css/main.css">
+	<link rel="stylesheet" type="text/css" href="src/css/foot.css">
 	<style type="text/css">
-		
+		.ws-topnav{background-color: #eee;height: 30px;line-height: 30px;}
+		.ws-tnavleft{float: left;}
+		.ws-tnavleft>span{height: 30px;display:inline-block;margin-right: 10px;position: relative;padding: 0 10px;}
+	
+		.ws-tnavleft>span>span{margin:0 3px;font-size: 14px;height: 30px;}
+		.ws-tnavleft>span>span>i{font-size: 12px;display: inline-block;margin-left: 5px;}
+		.ws-tnavleft>.city{display:none;z-index:1;position: absolute;top:30px;width: 295px;height: 380px;overflow-y: scroll;box-shadow: 0 10px 15px rgba(175,175,175);background-color: white;}
+		.ws-tnavleft>.city>.hot{display: block;height: 30px;background-color: #f1f1f1;}
+		.ws-tnavleft>.city>.hot>li{float:left;padding: 0 10px;}
+		a:hover{color:green;text-decoration: none;}
+		.ws-tnavleft>.city>.select>li{position: relative;}
+		.ws-tnavleft>.city>.select>li>a{border-bottom: 1px solid #eee;width: 258px;display: block;padding-left: 10px;height: 34px;}
+		.ws-tnavleft>.city>.select>li>i{position: absolute;top:0px;right: 20px;}
+		.ws-tnavleft>.city>.select>li>div>a{display: block;width: 258px;height: 35px;border-bottom: 1px dashed #eee;padding-left: 40px;}
+		.ws-tnavleft>.city>.select>li>div{display: none;}
+
+		.ws-tnavRight{float: right;}
+		.ws-tnavRight>ul>li{float: left;border-right: 1px solid #ccc;padding:0 15px;line-height: 20px;margin-top: 5px;}
+		.ws-tnavRight>ul>li>a:nth-of-type(2){margin-left: 20px;}
+		.ws-tnavRight>ul>li>a{color:#999;}
+		.ws-tnavRight>ul>li>a:hover{color:green;text-decoration: none;}
+		.ws-tnavRight>ul>li:nth-child(2){position: relative;}
+		.notice{width: 240px;max-height: 160px;position: absolute;top:30px;right:30px;background-color: white;z-index: 1;}
+		.notice>ul>li{	height: 36px;border-bottom: 1px dashed #ddd;line-height: 36px;}
+		.notice>ul>li>a{line-height: 16px;}
+
+
+
+
+		.ws-botnav{height: 120px;padding: 20px 0;}
+		.ws-botnav>.container>img{float: left;margin-right: 20px;}
+		.ws-botnav>.container>ul>li{float: left;width: 92px;height: 80px;text-align: center;padding: 20px 0 ;}
+		.ws-botnav>.container>ul>li>a{text-align: center;display: block;padding: 0 20px;}
+		.ws-botnav>.container>ul>li>a>span{display: block;}
+		.ws-botnav>.container>ul>li:nth-of-type(1) a{color:#64a131;}
+		.ws-botnav>.container>ul>li:nth-of-type(1){border-bottom: 2px solid #64a131;}
+		.ws-botnav>.container>ul>li:hover{background-color: #eee;}
+		.ws-botnav>.container>ul>li>a{color:#999;}
+		.ws-botnav>.container>.search{float: right;height: 50px;width: 180px;position: relative;padding-top: 20PX;}
+		.ws-botnav>.container>.search>input{border:0 none;border-bottom: 1px solid black;width: 180px;padding-right: 40px;}
+		.ws-botnav>.container>.search>i{position: absolute;top:15px;right: 10px;}
+
+		.ws-botnav>.container>.mainCar{margin-top:10px;width: 42px;height: 42px;border-radius:36% 45% 51% 40%;background-color: #64a131;float: right;text-align: center;padding-top: 5px;color: white;position: relative;}
+		.ws-botnav>.container>.mainCar>i{font-size: 26px;color: white;}
+		.ws-botnav>.container>.mainCar>span{position: absolute;top:-5px;left:18px;font-size: 17px;}
+
+
+	
 	</style>
 
 	<script src="src/js/jquery-3.2.1.js"></script>
 	<script src="src/lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="src/js/ercifengzhuang.js"></script>
+	<script type="text/javascript">
+		jQuery($=>{
+			// $('.header').load('src/html/header.html');
+			$('.main').load('src/html/main.html');
+			$('.footer').load('src/html/foot.html');
+		})
+	</script>
+
 </head>
 <body>
+		<div class="ws-top">
+		<div class="ws-topnav">
+			<div class="container">
+				<div class="ws-tnavleft">
+					<span>
+						<i class="iconfont icon-xiaohuoche green"></i><span>上海<i class="iconfont icon-xiangxia grey"></i></span>
+					</span>
+					满百包邮（环郊内）
+					<div class="city">
+						<p>热门城市：</p>
+						<ul class="hot"></ul>
+						<p>选择城市：</p>
+						<ul class="select"></ul>
+					</div>
+				</div>
+				<div class="ws-tnavRight">
+					<ul>
+						<li><a href="#">[ 登录 ]</a>,<a href="#">[ 注册有惊喜 ]</a></li>
+						<li><span>果园公告</span>
+							<div class="notice">
+								<ul>
+									<li><a href="">双11</a></li>
+									<li><a href="">测试果园公告1025</a></li>
+									<li><a href="">测试果园公告</a></li>
+									<li><a href="">查看更多</a></li>
+								</ul>
+							</div>
+					<div class="app"></div>
+						</li>
+						<li><a href="">券卡兑换</a></li>
+						<li><span><i class="iconfont icon-shouji green"></i>手机果园</span><div></div></li>
+					</ul>
+					
+				</div>
+				<script type="text/javascript">
+					jQuery($=>{
+			//城市出现
+			$('.ws-tnavleft span').hover(function(){
+				$(this).css('background-color','white');
+				$('.city').css('display','block');
+			})
+
+			$('.city').hover(function(){
+
+			},function(){
+				$('.ws-tnavleft span').css('background-color','#eee');
+				$('.city').css('display','none');
+		
+			})
+
+
+			///城市选择
+			$.get('src/api/region.php',function(res){
+				
+				let hot=res.map(item=>{
+					if(item.hot){
+					return `<li><a href="#">${item.name}</a></li>`}
+				});
+				$('.hot').html(hot);
+
+				let select=res.map(item=>{
+					 let list=`<li><a href="#">${item.name}</a>`;
+					if(item.regions===undefined){
+							return list;
+					}else{
+						list+=`<i class="iconfont icon-xiangxia"></i><div>`
+						item.regions.map(item=>{
+							list+=`<a>${item.name}</a>`;
+						});
+						list+=`</div>`;
+					}
+
+					list+=`</div></li>`;
+					return list;
+				});
+				$('.select').html(select);
+			
+				$('.select').on('click','a',function(){
+					var show = $(this).next().next().css('display');
+					$(this).next().next().css('display',show =='block'?'none':'block');			
+				});
+			})
+
+			///轮播图
+
+		});
+
+				</script>
+			</div>
+					
+		</div>
+		<div class="ws-botnav">
+			<div class="container">
+				<img src="src/img/main/logo.png" height="80px">
+				<ul>
+					<li><a href="">首页<span>Home</span></a></li>
+					<li><a href="src/html/fruit.html">鲜果<span>Fruit</span></a></li>
+					<li><a href="">生鲜<span>Fresh</span></a></li>
+					<li><a href="">礼品<span>Gift</span></a></li>
+					<li><a href="">会员中心<span>VIP Club</span></a></li>
+				</ul>
+				<div class="mainCar">
+					<i class="iconfont icon-gouwuche1"></i><span>0</span>
+				</div>
+				<div class="search">
+					<input type="" name="" placeholder="新奇士澳洲橙子"><i class="iconfont icon-fangdajing"></i>
+					<span>热门：0</span>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<!-- <header class="header"></header> -->
+	<main class="main"></main>
+	<footer class="footer"></footer>
 	
 </body>
 </html>

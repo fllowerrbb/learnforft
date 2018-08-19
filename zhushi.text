@@ -1,0 +1,44 @@
+// document.addEventListener('DOMContentLoaded',()=>{
+		// 	let prov=document.querySelector('#prov');
+		// 	let city=document.querySelector('#city');
+			
+
+		// 	let xhr=new XMLHttpRequest();
+		// 	xhr.onload=function(){
+
+		// 		let res=JSON.parse(xhr.responseText);
+			
+		// 		prov.innerHTML=res.regions.map(item=>{
+		// 			return `<option>${item.name}</option>`;
+					
+		// 		});
+		// 		cityShow(prov.value);
+				
+		// 		prov.onchange=()=>{
+		// 			cityShow(prov.value);
+				
+		// 		}
+
+		// 		function  cityShow(data){
+		// 			arr=[];
+		// 			res.regions.map(item=>{
+		// 				if(data===item.name){
+		// 					if(item.regions===undefined){
+		// 						return;
+		// 					}else{
+
+		// 					for(var i=0;i<item.regions.length;i++){
+		// 						arr.push(item.regions[i]);
+		// 					}
+		// 					}
+		// 				}
+		// 			});
+		// 			city.innerHTML=arr.map(item=>{
+		// 				return `<option>${item.name}</option>`;
+		// 			});
+		// 		}
+
+		// 	}
+		// 	xhr.open('get','src/api/region.php',true);
+		// 	xhr.send();
+		// });

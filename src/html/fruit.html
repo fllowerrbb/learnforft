@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/font/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/top.css">
+	<link rel="stylesheet" type="text/css" href="../css/foot.css">
+	<link rel="stylesheet" type="text/css" href="../css/goCar.css">
+	<style type="text/css">
+		.ws-index{height: 210px;padding-top: 36px;}
+		.ws-index>div{padding:12px 0 6px 0;height:42px;}
+		.ws-index>div>h5{display: inline-block;float: left;width: 28px;height: 20px;margin-right: 20px;vertical-align: top;margin-top: 3px;}
+		.ws-index>div>div>div{float: left;text-align: center;}
+		.ws-index>div>div>div>a{;height: 24px;display: inline-block; padding: 3px 10px;margin-right: 5px;}
+		.active{background-color:#64a131;color:white;}
+
+
+
+
+		.historyView{float: right;width: 273px;padding-left: 20px;}
+		.historyView>h5{color: #64a131;line-height: 39px;border-bottom: 1px solid #ccc;}
+
+
+	</style>
+
+	<script src="../js/jquery-3.2.1.js"></script>
+	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/ercifengzhuang.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		jQuery($=>{
+			$('.header').load('innerHeader.html');
+			$('.footer').load('innerfoot.html');
+
+			//index
+			// $('.ws-index div div div').on('click','a',function(){
+			// 	$(this).addClass('active');
+			// })
+
+				//生成数据
+			$.get("../api/goods.php",function(res){
+			
+				let content=res.records.map(item=>{
+						var str=item.img;
+						var sear=new RegExp(',');
+						if(sear.test(str)){
+							str=str.split(',');
+						item.img=str[0];
+						}
+					
+					return `
+						<div class="ws-gift ">
+						<a href="#"><img src="../${item.img}">${item.id}</a>
+						<div class="ws-info">
+						<span>${item.name}</span>
+						<span>￥${item.price}/ ${item.quantity}</span>
+						<div><i class="iconfont icon-gouwuche1"></i></div>
+						<div><i class="iconfont icon-gouwuche1"></i></div>
+						</div>
+						</div>
+					`;
+				})
+				$('.giftList').html(content);
+
+				//购物车按钮切换
+				$('.ws-gift .ws-info div').on('click',function(){
+
+					$(this).next().css('display','block');
+					$(this).css('top','-40px');
+					setTimeout(()=>{
+					$(this).next().css('top','0px');
+
+					$(this).css('display','none');
+					},200)
+				})
+
+				//详情页跳转
+				$('.ws-gift').on('click','a',function(){
+					let param1=$(this).text();
+				
+					 $.ajax({
+				            url: "../api/searchGoods.php", 
+				            type: "post",
+				            data: {param1:param1,
+				          	},
+				            success:function(data){
+				                //测试参数值
+				               Cookie.set('data',JSON.stringify(data));
+				                },
+				            error:function(e){
+				                alert('ajax hava an error');
+				                }, 
+				            complete:function(e){
+				                }
+        					}); 
+					 
+					 $(this).attr('href','realGoods.html');
+
+				})
+					
+			});
+				
+	});
+	</script>
+</head>
+<body>
+	<header class="header"></header>
+	<main class="main">
+		<div class="container">
+			<div class="ws-index">
+				<div >
+					<h5>品类</h5>
+					<div>
+						<div><a href="" class="active">全部</a></div>
+						<div><a href="">莲雾</a><a href="">组合套餐</a><a href="">榴莲</a><a href="">瓜类</a><a href="">树莓</a><a href="">草莓</a><a href="">葡萄柚</a><a href="">香蕉</a><a href="">番茄</a><a href="">奇异果</a><a href="">橙子</a><a href="">芒果</a><a href="">梨</a><a href="">柠檬</a><a href="">火龙果</a><a href="">百香果</a><a href="">牛油果</a><a href="">苹果</a><a href="">雪莲果</a></div>
+					</div>
+				</div>
+				<div>
+					<h5>产地</h5>
+					<div>
+						<div><a href="">全部</a></div>
+						<div><a href="">中国</a><a href="">西班牙</a><a href="">意大利</a><a href="">墨西哥</a><a href="">越南</a><a href="">马来西亚</a><a href="">澳大利亚</a><a href="">荷兰</a><a href="">南非</a><a href="">韩国</a><a href="">其他</a></div>
+					</div>
+				</div>
+				<div>
+					<h5>规格</h5>
+					<div>
+						<div><a href="">全部</a></div>
+						<div><a href="">单品</a><a href="">套餐</a><a href="">礼盒</a></div>
+					</div>
+				</div>
+				<div>
+					<h5>排序</h5>
+					<div>
+						<div><a href="">默认</a></div>
+						<div><a href="">价格从低到高</a><a href="">价格从高到低</a></div>
+					</div>
+				</div>
+			</div>
+			<div class="giftList"></div>
+			<div class="historyView">
+				<h5>最近浏览过</h5>
+			</div>
+		</div>
+	</main>
+	<footer class="footer"></footer>
+</body>
+</html>

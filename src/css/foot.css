@@ -1,0 +1,17 @@
+	/*buttom*/
+		.ws-font{padding:40px 0 20px 0;}
+		.ws-font>.container>ul{height: 97px;border-top:1px solid #ddd;border-bottom: 1px solid #ddd;padding: 20px 0;}
+		.ws-font>.container>ul>li{float: left;padding:0px 30px;border-right: 1px solid #ddd;}
+		.ws-font>.container>ul>li:last-child{border-right: none;}
+		.ws-font>.container>.service{padding-left: 230px;margin:20px 0 10px 0 ;border-bottom: 1px solid #ccc;height: 150px;}
+		.ws-font>.container>.service>img{display: inline-block;float: left;margin-left: 30px;}
+		.ws-font>.container>.service>ul{float: left;margin-left: 30px;}
+		.ws-font>.container>.service>ul>li{float: left;margin-right: 15px;width: 70px;font-size: 16px;}
+		.ws-font>.container>.service>ul>li>a{display: block;width: 75px;height: 30px;font-size: 12px;}
+		.ws-font>.container>.service>ul>li>h4{margin:10px 0 20px 0 ;}
+
+		.tech{text-align: center;}
+		.tech>p{margin-bottom: 10px;}
+		.tech>a{color:green;margin-right: 20px;}
+		.tech>div>img{display: inline-block;margin-right: 20px;margin-top: 10px;}
+		.tech>div>img:nth-of-type(2){width: 45px;height: 45px;}

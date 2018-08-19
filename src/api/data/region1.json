@@ -1,11 +1,17 @@
-{
-    "regions": [{
+[{
         "id": 110000,
         "name": "北京",
         "pinyin": "BeiJing",
         "hot": true,
         "municipality": true
-    }, {
+    },{
+        "id": 110000,
+        "name": "上海崇明",
+        "pinyin": "shanghaichongming",
+        "hot": false,
+        "municipality": true
+    }
+     ,{
         "id": 120000,
         "name": "天津",
         "pinyin": "TianJin",
@@ -52,14 +58,6 @@
     {
         "id": 310000,
         "name": "上海",
-        "regions": [{
-            "id": 310100,
-            "name": "上海市",
-            "regions": [ {
-                "id": 310230,
-                "name": "崇明县"
-            }]
-        }],
         "pinyin": "ShangHai",
         "hot": true,
         "municipality": true
@@ -121,7 +119,8 @@
             "name": "宿迁市",
             "pinyin": "SuQianShi"
         }],
-        "pinyin": "JiangSu"
+        "pinyin": "JiangSu",
+         "hot": true
     }, {
         "id": 330000,
         "name": "浙江",
@@ -171,7 +170,8 @@
             "name": "丽水市",
             "pinyin": "LiShuiShi"
         }],
-        "pinyin": "ZheJiang"
+        "pinyin": "ZheJiang",
+         "hot": true
     }, {
         "id": 340000,
         "name": "安徽",
@@ -335,4 +335,3 @@
         }],
         "pinyin": "GuangDong"
     }]
-}
