@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/font/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/top.css">
+	<link rel="stylesheet" type="text/css" href="../css/foot.css">
+	<link rel="stylesheet" type="text/css" href="../css/goCar.css">
+	<style type="text/css">
+		.regi-title>span{padding:15px;font-size: 20px;display: block;border-bottom:1px solid #ccc;}
+		.regi-content{padding-top: 36px;}
+		.regi-content>img{float:left;}
+		.regi-content>ul{float:right;width: 440px;height: 368px;}
+		.regi-content>ul>li{width: 440px;height: 40px;margin-bottom: 26px;}
+		.regi-content>ul>li>div:nth-of-type(1){width: 96px;height: 40px;font-size: 16px;color:#999;text-align: right;float: left;line-height: 40px;}
+		.regi-content>ul>li>div:nth-of-type(2){padding-left: 42px;width: 300px;height: 40px;float: left;}
+		.regi-content>ul>li>div:nth-of-type(2)>input{width: 300px;height: 40px;}
+		.regi-content>ul>li>div:nth-of-type(2)>input:focus{box-shadow: 1px 0 2px #1AE6E6,-1px 0 2px #1AE6E6,0 1px 2px #1AE6E6,0 -1px 2px #1AE6E6;}
+	</style>
+
+	<script src="../js/jquery-3.2.1.js"></script>
+	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		jQuery($=>{
+			$('.header').load('../html/loginheader.html');
+			$('.footer').load('../html/innerfoot.html');
+		})
+	</script>
+
+</head>
+<body>
+		
+	<header class="header"></header>
+	<main>
+		<div class="container1000">
+			<div class="regi-title">
+				<span>注册会员</span>
+			</div>
+			<div class="regi-content">		
+			<img src="http://staging.www.fruitday.com/images/common/huiyuan.jpg">
+			<ul>
+				<li>
+					<div><span>手机号</span></div>  <div><input type="" name=""></div>
+				</li>
+				<li>
+					<div><span>密码</span></div>    <div><input type="" name=""></div>
+				</li>
+				<li>
+					<div><span>确认密码</span></div><div><input type="" name=""></div>
+				</li>
+				<li>
+						<div><span>验证码</span></div>  <div><input type="" name=""></div>
+				</li>
+				<li>
+					<div><span>手机验证码</span></div><div><input type="" name=""></div>
+				</li>
+			</ul>
+			</div>
+		</div>
+	</main>
+	<footer class="footer"></footer>
+	
+</body>
+</html>

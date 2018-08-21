@@ -77,10 +77,10 @@
 					},200)
 				})
 
-				//详情页跳转
+				//详情页跳转(跳转过快)
 				$('.ws-gift').on('click','a',function(){
 					let param1=$(this).text();
-				
+					let n=false;
 					 $.ajax({
 				            url: "../api/searchGoods.php", 
 				            type: "post",
@@ -88,6 +88,8 @@
 				          	},
 				            success:function(data){
 				                //测试参数值
+				                data=JSON.parse(data);
+				               data.push('新鲜水果');
 				               Cookie.set('data',JSON.stringify(data));
 				                },
 				            error:function(e){
@@ -96,8 +98,10 @@
 				            complete:function(e){
 				                }
         					}); 
+
+					 	
+						 $(this).attr('href','realGoods.html');
 					 
-					 $(this).attr('href','realGoods.html');
 
 				})
 					

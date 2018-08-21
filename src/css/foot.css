@@ -1,6 +1,6 @@
 	/*buttom*/
 		.ws-font{padding:40px 0 20px 0;}
-		.ws-font>.container>ul{height: 97px;border-top:1px solid #ddd;border-bottom: 1px solid #ddd;padding: 20px 0;}
+		.ws-font>.container>ul{height: 97px;border-top:1px solid #ddd;border-bottom: 1px solid #ddd;padding: 20px 0;padding-left: 95px;}
 		.ws-font>.container>ul>li{float: left;padding:0px 30px;border-right: 1px solid #ddd;}
 		.ws-font>.container>ul>li:last-child{border-right: none;}
 		.ws-font>.container>.service{padding-left: 230px;margin:20px 0 10px 0 ;border-bottom: 1px solid #ccc;height: 150px;}

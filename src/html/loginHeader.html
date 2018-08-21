@@ -1,0 +1,147 @@
+<div class="ws-top">
+		<div class="ws-topnav">
+			<div class="container">
+				<div class="ws-tnavleft">
+					<span>
+						<i class="iconfont icon-xiaohuoche green"></i><span>上海<i class="iconfont icon-xiangxia grey"></i></span>
+					</span>
+					满百包邮（环郊内）
+					<div class="city">
+						<p>热门城市：</p>
+						<ul class="hot"></ul>
+						<p>选择城市：</p>
+						<ul class="select"></ul>
+					</div>
+				</div>
+				<div class="ws-tnavRight">
+					<ul>
+						<li><a href="login.html">[ 登录 ]</a>,<a href="register.html">[ 注册有惊喜 ]</a></li>
+						<li><span>果园公告</span>
+							<div class="notice">
+								<ul>
+									<li><a href="">双11</a></li>
+									<li><a href="">测试果园公告1025</a></li>
+									<li><a href="">测试果园公告</a></li>
+									<li><a href="">查看更多></a></li>
+								</ul>
+							</div>
+					
+						</li>
+						<li><a href="">券卡兑换</a></li>
+						<li><span><i class="iconfont icon-shouji green"></i>手机果园</span>
+							<div class="app">
+								<div class="appTop">
+									<p><a href="">下载果园APP，</a>即享果园特价商品</p>
+									<img src="http://img1.fruitday.com/guan_ewcode2.jpg">
+									<div>
+										<span><i class="iconfont icon-pingguologo"></i>APP store</span>
+										<span><i class="iconfont icon-andriod"></i>Android</span>
+									</div>
+								</div>
+								<div class="appBot">
+									<img src="http://img1.fruitday.com/guan_ewcode1.jpg">
+									<div>
+										<span><a href="">关注果园微信</a></span>
+										<span>优惠信息实时掌握</span>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					
+				</div>
+				<script type="text/javascript">
+						//果园公告
+						jQuery($=>{
+						$('.ws-tnavRight >ul >li:nth-child(2)').hover(function(){
+							$('.notice').css('display','block');
+							$(this).css('background-color','white');
+							
+							clearInterval(this.timer);
+						},function(){
+							this.timer = setTimeout(function(){
+								$('.notice').hide()
+							},100)
+								$(this).css('background-color','#eee');
+							
+						});
+
+						//app
+					
+						$('.ws-tnavRight >ul >li:nth-child(4)').hover(function(){
+							$('.app').css('display','block');
+							$(this).css('background-color','white');
+							
+							clearInterval(this.timer);
+						},function(){
+							this.timer = setTimeout(function(){
+								$('.app').hide();
+							},100)
+								$(this).css('background-color','#eee');
+							
+						});
+
+						//城市出现
+						$('.ws-tnavleft span').hover(function(){
+							$(this).css('background-color','white');
+							$('.city').css('display','block');
+						})
+
+						$('.city').hover(function(){
+
+						},function(){
+							$('.ws-tnavleft span').css('background-color','#eee');
+							$('.city').css('display','none');
+					
+						})
+
+
+						///城市选择
+						$.get('../api/region.php',function(res){
+							
+							let hot=res.map(item=>{
+								if(item.hot){
+								return `<li><a href="#">${item.name}</a></li>`}
+							});
+							$('.hot').html(hot);
+
+							let select=res.map(item=>{
+								 let list=`<li><a href="#">${item.name}</a>`;
+								if(item.regions===undefined){
+										return list;
+								}else{
+									list+=`<i class="iconfont icon-xiangxia"></i><div>`
+									item.regions.map(item=>{
+										list+=`<a>${item.name}</a>`;
+									});
+									list+=`</div>`;
+								}
+
+								list+=`</div></li>`;
+								return list;
+							});
+							$('.select').html(select);
+						
+							$('.select').on('click','a',function(){
+								var show = $(this).next().next().css('display');
+								$(this).next().next().css('display',show =='block'?'none':'block');	
+								var value=$(this).text();
+								$('.ws-tnavleft span>span').html(`${value}<i class="iconfont icon-xiangxia grey"></i>`);			
+							});
+						})
+
+						///轮播图
+
+					});
+
+				</script>
+			</div>
+					
+		</div>
+		<div class="ws-botnav">
+			<div class="container">
+				<img src="..//img/main/logo.png" height="80px">
+				
+			</div>
+		</div>	
+		</div>

@@ -40,7 +40,7 @@ s,i,em{font-style:normal;text-decoration:none;}
     width: 1280px;
     /*background-color:yellow;*/
     margin:0 auto;
-    overflow: hidden;
+  
     color:#999;
     padding-left: 0px;
     padding-right: 0px;
@@ -51,6 +51,16 @@ s,i,em{font-style:normal;text-decoration:none;}
     margin-left: 351px;
     border-left: 5px solid #eee;
    
+}
+.container1000{
+    width: 1000px;
+    /*background-color:yellow;*/
+    height: 600px;
+    margin:0 auto;
+    padding-top: 50px;
+    color:#999;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 .fl {
     float:left;
@@ -67,3 +77,7 @@ s,i,em{font-style:normal;text-decoration:none;}
 
 .green{color:#64a131;}
 .grey{color: #999;}
+
+.clearfix:after{
+  content:""; display: block;height:0;overflow: hidden;visibility: hidden;clear:both;zoom:1;
+}
