@@ -9,7 +9,14 @@
 	<link rel="stylesheet" type="text/css" href="../css/top.css">
 	<link rel="stylesheet" type="text/css" href="../css/foot.css">
 	<link rel="stylesheet" type="text/css" href="../css/goCar.css">
+	<link rel="stylesheet" type="text/css" href="../css/loginRegi.css">
 
+	<style type="text/css">
+		.regi-content>ul{margin-top: 100px;}
+		.regi-content>ul>li:nth-of-type(3){margin-bottom: 0px;}
+		.regi-content>ul>li:nth-of-type(3)>div{margin-left: 120px;}
+		.regi-content>ul>li:nth-of-type(3)>a{line-height: 40px;color:#ccc;float: right;text-decoration: underline;font-size: 16px;}
+	</style>
 	<script src="../js/jquery-3.2.1.js"></script>
 	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
@@ -17,6 +24,54 @@
 		jQuery($=>{
 			$('.header').load('../html/loginheader.html');
 			$('.footer').load('../html/innerfoot.html');
+
+			function panding(){
+
+				var phone=$('.phone ').val();
+			
+				if(!/^1[3-9]\d{9}$/.test(phone)){
+					alert('手机号不合法');
+					return false;
+				}
+
+				var password=$('.password ').val();
+				if(!/^\S{6,20}$/.test(password)){
+					alert('密码不能有空格');
+					return false;
+				}
+
+				return true;
+			}
+
+			$('.login').on('click',function(){
+				$(function(){
+					var state=panding();
+					console.log(state);
+					if(state){
+						var phone=$('.phone').val();
+						console.log(phone);
+						var password=$('.password ').val();
+
+						 $.ajax({
+				            url: "../api/check.php", 
+				            type: "post",
+				            data: {phone:phone,password:password
+				          	},
+				            success:function(data){
+				            	console.log(data);
+				         		if(data=="true"){
+				         			window.location.href="../../index.html";
+				         		}
+				                },
+				            error:function(e){
+				                alert('ajax hava an error');
+				                }, 
+				            complete:function(e){
+				                }
+        					});  
+					}
+				})
+			})
 		})
 	</script>
 
@@ -25,8 +80,25 @@
 		
 	<header class="header"></header>
 	<main>
-		<div class="container">
+		<div class="container1000">
+			<div class="regi-title">
+				<span>会员登录</span>
+			</div>
+			<div class="regi-content">		
+			<img src="http://staging.www.fruitday.com/images/common/huiyuan.jpg">
+			<span><a href="register.html">会员注册></a></span>
+			<ul>
+				<li>
+					<div><span>手机号</span></div>  <div ><input class="phone" type="" name=""></div>
+				</li>
+				<li>
+					<div><span>密码</span></div>   <div ><input class="password" type="password" name="" placeholder="请输入6-20位号码字符"></div>
+				</li>
+				<li><div><input type="checkbox" name="" checked><span>记住密码</span></div><a href="">忘记密码？快捷登录</a></li>
+				<li ><button class="login">登录</button><button><a href="register.html">注册会员</a></button></li>
+			</ul>
 			
+			</div>
 		</div>
 	</main>
 	<footer class="footer"></footer>

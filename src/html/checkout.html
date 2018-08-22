@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/font/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/top.css">
+	<link rel="stylesheet" type="text/css" href="../css/foot.css">
+	<link rel="stylesheet" type="text/css" href="../css/goCar.css">
+	<style type="text/css">
+		.carlistTop{padding-top: 50px;margin-bottom: 10px;}
+		.carlistTop>p{display: inline-block;height: 25px;color:#555;font-size: 20px;}
+		.carlistTop>p>i{display: inline-block;padding: 0 5px;font-size: 24px;}
+		.carlistTop>a{float: right;color:green;font-size: 16px;display: inline-block;padding-top: 10px;}
+		.mygoodsList{border:1px solid #ccc;}
+		.goodsListTop{height: 50px;background-color: #f1f1f1;}
+		.goodsListTop>div{display: inline-block;font-size: 16px;line-height: 50px;color:#ccc;}
+		.goodsListTop>div:nth-of-type(1){height: 50px;padding-left: 146px;}
+		.goodsListTop>div:nth-of-type(2){padding-left: 245px;}
+		.goodsListTop>div:nth-of-type(3){padding-left: 75px;}
+		.goodsListTop>div:nth-of-type(4){padding-left: 60px;}
+		.goodsListTop>div:nth-of-type(5){padding-left: 90px;}
+		.goodsListTop>div:nth-of-type(6){padding-left: 80px;}
+		.goodsListDe>li>.goodsNum{border:1px solid #ccc;}
+		.goodsListDe>li>.goodsNum>span{width: 28px;height: 22px;background-color: #eeeeee;color: #a6a6a6;text-align: center;line-height: 22px;font-size: 14px;display: inline-block;padding-left: 0px;}
+
+		.goodsListDe>li>.goodsNum>input{width: 35px;text-align: center;border:none;}
+
+		.goodsListDe>li{height: 130px;margin:10px 0;border-bottom: 1px solid #ccc;}
+		.goodsListDe>li>div{float: left;font-size: 16px;text-align: center;}
+		.goodsListDe>li>img{width: 110px;height: 110px;float: left;margin-left: 50px;}
+		.goodsListDe>li>div>span{display: inline-block;padding-left: 20px;font-size: 16px;color:black;}
+		.goodsListDe>li>div:nth-of-type(1){width: 260px;color:black;}
+		.goodsListDe>li>div:nth-of-type(2){width: 60px;color:black;}
+		.goodsListDe>li>div:nth-of-type(3){width: 168px;color:#64a131;font-weight: bold;text-align: center;}
+		
+		.goodsListDe>li>div:nth-of-type(5){width: 120px;color:#64a131;font-weight: bold;text-align: center;}
+		.goodsListDe>li>div:nth-of-type(6){width: 100px;}
+
+		.checkoutList{height: 50px;margin-top: 24px;border:1px solid #64a131;width: 100%;}
+		.checkoutList>button{width: 150px;background-color: #64a131;color:white;height: 48px;float: right;border:none;font-size: 16px;}
+		.checkoutList>div>span{float: right;font-size: 16px;line-height: 48px;}
+		.checkoutList>div>span>a{padding: 0 5px;color:#64a131;}
+
+		.history>p{font-size: 16px;margin: 20px 0;}
+		.history>div{height: 130px;border: 1px solid #ccc;}
+	</style>
+	<script src="../js/jquery-3.2.1.js"></script>
+	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/check.js"></script>
+	<script type="text/javascript">
+		jQuery($=>{
+			$('.header').load('../html/checkheader.html');
+			$('.footer').load('../html/innerfoot.html');
+				Checkout.init();
+				Checkout.render();
+
+
+		})
+	</script>
+
+</head>
+<body>
+		
+	<header class="header"></header>
+	<main>
+		<div class="container1000">
+			<div class="ws-mycarlist">
+				<div class="carlistTop">
+					<p><i class="iconfont icon-gouwuche"></i>我的购物车</p><a href="">继续逛逛></a>
+				</div>
+				<div class="mygoodsList">
+					<div class="goodsListTop">
+						<div><span>商品</span></div><div><span>规格</span></div><div><span>单价(元)</span></div>
+						<div><span>数量</span></div><div><span>原价(元)</span></div><div><span>操作</span></div>
+					</div>
+					<ul class="goodsListDe"></ul>
+					<div class="checkoutList">
+						<button>去结算</button>
+						<div><span>已选择<a href=""></a>商品|订单金额<a href=""></a></span></div>
+					</div>
+				</div>
+				<div class="history">
+					<p>您可能感兴趣的商品</p>
+					<div></div>
+				</div>
+			</div>	
+		</div>
+	</main>
+	<footer class="footer"></footer>
+	
+</body>
+</html>

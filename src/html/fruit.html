@@ -17,28 +17,21 @@
 		.ws-index>div>div>div>a{;height: 24px;display: inline-block; padding: 3px 10px;margin-right: 5px;}
 		.active{background-color:#64a131;color:white;}
 
-
-
+		.lowTo,.highTo{color:black;height: 24px;display: inline-block; padding: 3px 10px; margin-right: 5px;}
 
 		.historyView{float: right;width: 273px;padding-left: 20px;}
-		.historyView>h5{color: #64a131;line-height: 39px;border-bottom: 1px solid #ccc;}
-
-
+		.historyView>h5{color: #64a131;line-height: 39px;border-bottom: 1px solid #ccc;}		
 	</style>
 
 	<script src="../js/jquery-3.2.1.js"></script>
 	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/ercifengzhuang.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/fruit.js"></script>
 	<script type="text/javascript">
 		jQuery($=>{
 			$('.header').load('innerHeader.html');
 			$('.footer').load('innerfoot.html');
-
-			//index
-			// $('.ws-index div div div').on('click','a',function(){
-			// 	$(this).addClass('active');
-			// })
 
 				//生成数据
 			$.get("../api/goods.php",function(res){
@@ -55,58 +48,107 @@
 						<div class="ws-gift ">
 						<a href="#"><img src="../${item.img}">${item.id}</a>
 						<div class="ws-info">
-						<span>${item.name}</span>
-						<span>￥${item.price}/ ${item.quantity}</span>
+						<p>${item.name}<span>￥${item.price}</span></p>
+						<span>${item.quantity}</span>
 						<div><i class="iconfont icon-gouwuche1"></i></div>
 						<div><i class="iconfont icon-gouwuche1"></i></div>
 						</div>
 						</div>
 					`;
-				})
+				});
 				$('.giftList').html(content);
+					fruit();
 
-				//购物车按钮切换
-				$('.ws-gift .ws-info div').on('click',function(){
+				//价格从低到高
+				$('.lowTo').on('click',function(){
+			
+				$.get("../api/lowTo.php",function(res){
+						let car=JSON.parse(res);
+						let content=car.map(item=>{
+							var str=item.img;
+							var sear=new RegExp(',');
+							if(sear.test(str)){
+								str=str.split(',');
+							item.img=str[0];
+							}
+						
+						return `
+							<div class="ws-gift ">
+							<a href="#"><img src="../${item.img}">${item.id}</a>
+							<div class="ws-info">
+							<p>${item.name}<span>￥${item.price}</span></p>
+							<span>${item.quantity}</span>
+							<div><i class="iconfont icon-gouwuche1"></i></div>
+							<div><i class="iconfont icon-gouwuche1"></i></div>
+							</div>
+							</div>
+						`;
 
-					$(this).next().css('display','block');
-					$(this).css('top','-40px');
-					setTimeout(()=>{
-					$(this).next().css('top','0px');
+					})
+					$('.giftList').html(content);
+						fruit();
+					});
+				});
 
-					$(this).css('display','none');
-					},200)
-				})
+				//价格从高到低
+				$('.highTo').on('click',function(){
+			
+				$.get("../api/highTo.php",function(res){
+						let car=JSON.parse(res);
+						let content=car.map(item=>{
+							var str=item.img;
+							var sear=new RegExp(',');
+							if(sear.test(str)){
+								str=str.split(',');
+							item.img=str[0];
+							}
+						
+						return `
+							<div class="ws-gift ">
+							<a href="#"><img src="../${item.img}">${item.id}</a>
+							<div class="ws-info">
+							<p>${item.name}<span>￥${item.price}</span></p>
+							<span>${item.quantity}</span>
+							<div><i class="iconfont icon-gouwuche1"></i></div>
+							<div><i class="iconfont icon-gouwuche1"></i></div>
+							</div>
+							</div>
+						`;
 
-				//详情页跳转(跳转过快)
-				$('.ws-gift').on('click','a',function(){
-					let param1=$(this).text();
-					let n=false;
-					 $.ajax({
-				            url: "../api/searchGoods.php", 
-				            type: "post",
-				            data: {param1:param1,
-				          	},
-				            success:function(data){
-				                //测试参数值
-				                data=JSON.parse(data);
-				               data.push('新鲜水果');
-				               Cookie.set('data',JSON.stringify(data));
-				                },
-				            error:function(e){
-				                alert('ajax hava an error');
-				                }, 
-				            complete:function(e){
-				                }
-        					}); 
+					})
+					$('.giftList').html(content);
+						fruit();
+					});
+				});
 
-					 	
-						 $(this).attr('href','realGoods.html');
-					 
 
-				})
-					
-			});
-				
+
+
+					Car.init();
+					var carList = Cookie.get('buycar');
+					if(carList!=''){
+
+					carList=JSON.parse(carList);
+					Car.render(carList);
+					}
+					////数量增加减少
+					$('.buyList ul li div .left').on('click',function(){
+					let i=$(this).next().val();
+					if(i>1){
+							i--;
+						}
+						$(this).next().val(i);
+					});
+					$(' .buyList ul li div .right').on('click',function(){
+						let i=$(this).prev().val()-0;
+						if(i>=1&&i<200){
+							i++;
+						}
+						$(this).prev().val(i);
+					})
+			
+		});			
+
 	});
 	</script>
 </head>
@@ -140,7 +182,20 @@
 					<h5>排序</h5>
 					<div>
 						<div><a href="">默认</a></div>
-						<div><a href="">价格从低到高</a><a href="">价格从高到低</a></div>
+						<div><span class="lowTo">价格从低到高</span><span class="highTo">价格从高到低</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="bg"></div>
+			<div class="centerBlock">
+				<div class="blockTop"><span>&times;</span></div>
+				<div class="blockContent">
+					<div class="blockSuccess">
+						<p><i class="iconfont icon-renzhenghuizhang"></i>加入购物车成功</p>
+					</div>
+					<div class="blockDetail">
+						<p>购物车中共<a href=""></a>件商品|商品小计<a href=""></a></p>
+						<button>继续购物</button><button><a href="checkout.html">去结算</a></button>
 					</div>
 				</div>
 			</div>

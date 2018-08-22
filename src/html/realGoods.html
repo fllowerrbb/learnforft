@@ -30,7 +30,7 @@
 		.goodsInfo>.priceInfo>span:last-of-type{color:green;font-size: 26px}
 		.goodsInfo>.quanInfo{height: 28px;margin-bottom: 20px;padding-left: 10px;}
 		.goodsInfo>.quanInfo>span{padding:0px 20px 20px 10px;display:inline-block;font-size: 14px;width: 70px;}
-		.goodsInfo>.quanInfo>span:last-of-type{height: 26px;padding:3px 20px;background-color: green;color: white;}
+		.goodsInfo>.quanInfo>span:last-of-type{height: 26px;padding:3px 20px;background-color: #64a131;color: white;}
 		.goodsInfo>.delivery>span{padding:10px 20px 20px 10px;display:inline-block;font-size: 14px;float: left;}
 		.goodsInfo>.delivery{height: 30px;margin-bottom: 30px;padding-left: 10px;}
 		.goodsInfo>.delivery>.deliTo{height: 30px;padding:5px 20px;float: left;border:1px solid #ccc;margin-top: 5px;position: relative;}
@@ -53,8 +53,10 @@
 		.numInfo>div>input{width: 35px;text-align: center;border:none;}
 
 		.buyGoods{height: 66px;padding-left: 70px;border-bottom: 1px solid #ccc;}
-		.buyGoods>div{height: 36px;width: 160px;background-color: #eee;color:#a6a6a6;display: inline-block;font-size: 16px;text-align: center;line-height: 36px;}
-		.buyGoods>div:last-of-type{margin-left: 20px;}
+		.buyGoods>div{height: 36px;width: 160px;background-color: #f1f1f1;display: inline-block;font-size: 16px;text-align: center;line-height: 36px;border:1px solid #64a131;color:#64a131;}
+		.buyGoods>div>a{width: 160px;height: 36px;}
+		.buyGoods>div:last-of-type{margin-left: 20px;background-color: #64a131;color:white;}
+
 		.goodsPs{margin-top: 20px;}
 		.goodsPs>div{display: inline-block;width: 260px;height: 20px;margin-left: 10px;font-size: 14px;}
 		.goodsPs>div>span{display: inline-block;color:black;margin-left: 20px;}
@@ -77,10 +79,87 @@
 	<script src="../js/jquery-3.2.1.js"></script>
 	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
+	<!-- <script type="text/javascript" src="../js/zoom.js"></script> -->
 	<script type="text/javascript">
 		jQuery($=>{
-			$('.header').load('innerHeader.html');
+			$('.header').load('innerHeader.html',function(){
+
+					Car.init();
+					var carList = Cookie.get('buycar');
+					if(carList!=''){
+
+					carList=JSON.parse(carList);
+					Car.render(carList);
+					}
+
+					////数量增加减少
+					$('.buyList ul li div .left').on('click',function(){
+						let i=$(this).next().val();
+						if(i>1){
+							i--;
+						}
+						$(this).next().val(i);
+					});
+					$(' .buyList ul li div .right').on('click',function(){
+						let i=$(this).prev().val()-0;
+						if(i>=1&&i<200){
+							i++;
+						}
+						$(this).prev().val(i);
+					})
+			});
+			
 			$('.footer').load('innerfoot.html');
+
+			Car.add=function(goodslist){
+				
+				var number=$('.numInfo div .left').next().val()-0;
+				var quantity=goodslist.price+'/'+goodslist.quantity;
+				var src='../'+goodslist.img;
+				var name=goodslist.name;
+				let n=0;
+				for(var i=0;i<this.goodslist.length;i++){
+					if(this.goodslist[i].name===name){
+							this.goodslist[i].qty+=number;
+					}else{
+
+					n++;
+					}
+				}
+				if(n>=i){
+
+				this.goodslist.push({
+					src:src,
+					name:name,
+					quantity:quantity,
+					qty:number
+				});
+				}
+				console.log(this.goodslist);
+				this.render();
+			}
+
+			// ///放大镜效果
+			// zoom.initialize($('.max'))
+   //              // 鼠标进入
+   //              $('.max').mouseenter(function (e) {
+   //                  e = e.target
+   //                  if (!e.src) {
+   //                      // 鼠标在父对象边框进入的情况
+   //                      // src将获取不到
+   //                      e = $('img', e)[0]
+   //                  }
+   //                  zoom.into(e.src)
+   //              });
+   //              // 鼠标离开
+   //              $('.max').mouseleave(function (e) {
+   //                  zoom.leave()
+   //              });
+   //              // 鼠标移动
+   //              $('.max').mousemove(function (e) {
+   //                  zoom.mover(e)
+   //              });
+
 
 			//多图片处理
 			var data = Cookie.get('data');
@@ -98,11 +177,39 @@
 				multi(str);
 				
 			}else{
-				let content= `<li><img src=../${str}><span></span></li>`;
+				let content= `<li class="max"><img src=../${str}><span></span></li>`;
 				$('.goodsBanner').html(content);
 				$('.realBanner').html(content);
+				$('.detailContent div').html(content);
 			}
-			
+
+			$('.buyGoods div:nth-child(2)').on('click',function(){
+				Car.add(data[0]);
+				$('.buyList').show();
+				$('.bg').show();
+				$('.centerBlock').show();
+				
+			});
+
+			//居中弹窗
+			var top=(window.innerHeight-$('.centerBlock').outerHeight())/2+'px';
+			var left=(window.innerWidth-$('.centerBlock').outerWidth())/2+'px';
+
+			$('.centerBlock').css('top',`${top}`);
+			$('.centerBlock').css('left',`${left}`);
+			//弹窗关闭
+			$('.blockTop span').on('click',function(){
+				$(this).parent().parent().hide();
+				$('.bg').hide();
+			});
+			$('.blockDetail button:nth-child(2)').on('click',function(){
+				$('.centerBlock').hide();
+				$('.bg').hide();
+			})
+
+
+
+
 			//商品名字处理
 			let nameInfo=`
 					<h3>${data[0].name}</h3>
@@ -215,13 +322,15 @@
 				$(this).prev().val(i);
 			})
 
+			
+
 			//多图函数
 			function multi(str){
 				let content=str.map(item=>{
 					if(item==str[0]){
 						return ;
 					}
-					return `<li><img src=${item}><span></span></li>`;
+					return `<li  class="max" ><img src=${item}><span></span></li>`;
 				});
 				$('.goodsBanner').html(content);
 				$('.detailContent div').html(content);
@@ -295,9 +404,7 @@
 			$('.detailContent dl:nth-child(2) dd').html(`${data[0].vitamine}`);
 			$('.detailContent dl:nth-child(3) dd').html(`${data[0].store}`);
 
-			///添加到购物车
-
-		})
+		});
 	</script>
 </head>
 <body>
@@ -337,8 +444,8 @@
 								</div>
 							</div>
 							<div class="buyGoods">
-								<div><a href=""></a>立即购买</div>
-								<div><a href=""></a>加入购物车</div>
+								<div><a href="checkout.html">立即购买</a></div>
+								<div>加入购物车</div>
 							</div>
 							<div class="goodsPs">
 								<div><h5>存储方法</h5><span></span></div>
@@ -362,6 +469,19 @@
 				</div>
 			</div>
 		</main>
+			<div class="bg"></div>
+			<div class="centerBlock">
+				<div class="blockTop"><span>&times;</span></div>
+				<div class="blockContent">
+					<div class="blockSuccess">
+						<p><i class="iconfont icon-renzhenghuizhang"></i>加入购物车成功</p>
+					</div>
+					<div class="blockDetail">
+						<p>购物车中共<a href=""></a>件商品|商品小计<a href=""></a></p>
+						<button><继续购物</button><button><a href="checkout.html">去结算</a></button>
+					</div>
+				</div>
+			</div>
 		<footer class="footer"></footer>
 </body>
 </html>

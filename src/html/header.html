@@ -130,7 +130,15 @@
 							});
 						})
 
-						///轮播图
+						//出现buylist
+						$('.mainCar').on('click',function(e){
+							$('.buyList').toggle();
+							e.preventDefault();
+						})
+						$('.buyList').on('click',function(e){
+							e.stopPropagation();
+
+						});
 
 					});
 
@@ -150,6 +158,15 @@
 				</ul>
 				<div class="mainCar">
 					<i class="iconfont icon-gouwuche1"></i><span>0</span>
+					<div class="buyList">
+						<i class="iconfont icon-sanjiaoxing-up"></i>
+						<ul></ul>
+						<div class="checkout">
+							<div><span>共<a href="">0</a>件商品</span></div>
+							<div><span>商品小计</span><a href=""></a></div>
+							<a href="src/html/checkout.html"><button>立即结算</button></a>
+						</div>
+					</div>
 				</div>
 				<div class="search">
 					<input type="" name="" placeholder="新奇士澳洲橙子"><i class="iconfont icon-fangdajing"></i>

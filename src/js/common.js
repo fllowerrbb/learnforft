@@ -213,7 +213,7 @@ var Cookie = {
 		if(prop === undefined){
 			prop = {};
 		}
-
+		console.log(prop.expires);
 		// 有效期
 		if(prop.expires){
 			str += ';expires=' + prop.expires.toUTCString();
@@ -382,4 +382,170 @@ function animate(ele,opt,callback){
  */
 function type(data){
 	return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
-}
+};
+
+			var Car ={
+					goodslist:[],
+					totalPrice:0,
+					ele:'.buyList ul',
+
+					init(){
+						this.ele=$(this.ele);
+					
+						//删除单个商品
+						 this.ele.on('click','span:nth-child(4)',(e)=>{
+                        // 获取当前li
+                        let $currentLi = $(e.target).closest('li');
+                        let idx = $currentLi.index();
+
+                        this.remove(idx);
+                    });
+					},
+					//添加商品
+					add(idx){
+						let $currentDiv =$('.giftList .ws-gift').eq(idx);
+
+						let $currentImg=$currentDiv.find('img');
+
+						let src=$currentImg.attr('src');
+						let nameDeti=$currentDiv.find('div>p').text().split('￥');
+						
+						let name=nameDeti[0];
+
+						let quantity=$currentDiv.find('div p>span').text()+'/'+$currentDiv.find('div>span').text();
+
+						this.currentImg=$currentImg;
+						let n=0;
+						for(var i=0;i<this.goodslist.length;i++){
+							if(this.goodslist[i].name===name){
+									this.goodslist[i].qty+=1;
+									console.log(this.goodslist[i].qty)
+							}else{
+
+							n++;
+							}
+						}
+						if(n>=i){
+
+						this.goodslist.push({
+							src:src,
+							name:name,
+							quantity:quantity,
+							qty:1
+						});
+						}
+						this.render();
+
+
+					},
+					remove(idx){
+						this.goodslist.splice(idx,1);
+						this.render();
+					},
+					clear(idx){
+						this.goodslist=[];
+						this.render();
+					},
+					render(goodslist){
+						if(goodslist){
+							this.goodslist=goodslist;
+						}
+						let total=0;
+						let totalGoods=0;
+						let content =this.goodslist.map((item,idx)=>{
+							
+							var price=item.quantity.split('/');
+							price=price[0].slice(1);
+							total+=(price-0)*(item.qty-0);
+							totalGoods+=item.qty-0;
+							return `
+								<li>
+								<img src="${item.src}"/>
+								<div>
+									<h5>${item.name}</h5>
+									<h5>${item.quantity}</h5>
+									<div>
+									<span class="left">-</span>
+									<input type="" name="" value="${item.qty}">
+									<span class="right">+</span>
+									</div>
+									<span>删除</span>
+								</div>
+								</li>
+							`
+						}).join('');
+						
+						var date = new Date();
+
+						// 在当前的基础上+7天
+						date.setDate(date.getDate()+7);
+					
+						document.cookie ='buycar='+JSON.stringify(this.goodslist)+';expires='+ date.toUTCString();
+						this.ele.html(content);
+						$('.checkout div:nth-child(1)>span>a').html(`${totalGoods}`);
+						$('.mainCar>span').html(`${totalGoods}`);
+						$('.blockDetail p>a:nth-child(1)').html(`${totalGoods}`);
+						total=total.toFixed(2);
+						$('.checkout div:nth-child(2)>a').html(`${total}`);
+						$('.blockDetail p>a:nth-child(2)').html(`${total}`);
+					}
+				}
+	var Checkout ={
+					buycar:[],
+
+					init(){
+						var data = Cookie.get('buycar');
+							data=JSON.parse(data);
+							this.buycar=data;
+						
+					//商品删除
+				
+					},
+					remove(idx){
+						this.buycar.splice(idx,1);
+	
+						this.render();
+					},
+					amend(idx,i){
+						console.log(i,this.buycar[idx].qty);
+
+						this.buycar[idx].qty=i;
+						this.render();
+					},
+					render(){
+							
+							var qty=0;
+							var total=0;
+							var price=0;
+							var content=this.buycar.map(item=>{
+								qty+=item.qty-0;
+
+								var quantity=item.quantity.split('/');
+								price=quantity[0].slice(1);
+								total+=(price-0)*(item.qty-0);
+								return `
+								<li>
+									<img src="${item.src}"/>
+									<div>${item.name}</div>
+									<div>${quantity[1]}</div>
+									<div>${quantity[0]}</div>
+									<div class="goodsNum">
+										<span class="left">-</span>
+										<input type="" name="" value="${item.qty}">
+										<span class="right">+</span>
+									</div>
+									<div>${quantity[0]}</div>
+									<div><span>删除</span></div>
+								</li>
+								`;
+								})
+							$('.goodsListDe').html(content);
+							check();
+							qty=qty+'件';
+							$('.checkoutList div span a:nth-of-type(1)').html(`${qty}`);
+							total='￥'+total.toFixed(2);
+							$('.checkoutList div span a:nth-of-type(2)').html(`${total}`);
+							document.cookie ='buycar='+JSON.stringify(this.buycar);
+					}
+				}	
+			

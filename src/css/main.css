@@ -1,4 +1,5 @@
-.ws-newActivity>.container{height: 200px;border-bottom: 2px solid #ddd;}
+		
+		.ws-newActivity>.container{height: 200px;border-bottom: 2px solid #ddd;}
 		.ws-newActivity>.container>li{float: left;list-style: none;padding-right: 10px;margin-top: 10px;}
 		
 		.title{height: 67px;padding:15px 0 10px;width: 1280px;}

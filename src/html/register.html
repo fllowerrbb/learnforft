@@ -9,17 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/top.css">
 	<link rel="stylesheet" type="text/css" href="../css/foot.css">
 	<link rel="stylesheet" type="text/css" href="../css/goCar.css">
-	<style type="text/css">
-		.regi-title>span{padding:15px;font-size: 20px;display: block;border-bottom:1px solid #ccc;}
-		.regi-content{padding-top: 36px;}
-		.regi-content>img{float:left;}
-		.regi-content>ul{float:right;width: 440px;height: 368px;}
-		.regi-content>ul>li{width: 440px;height: 40px;margin-bottom: 26px;}
-		.regi-content>ul>li>div:nth-of-type(1){width: 96px;height: 40px;font-size: 16px;color:#999;text-align: right;float: left;line-height: 40px;}
-		.regi-content>ul>li>div:nth-of-type(2){padding-left: 42px;width: 300px;height: 40px;float: left;}
-		.regi-content>ul>li>div:nth-of-type(2)>input{width: 300px;height: 40px;}
-		.regi-content>ul>li>div:nth-of-type(2)>input:focus{box-shadow: 1px 0 2px #1AE6E6,-1px 0 2px #1AE6E6,0 1px 2px #1AE6E6,0 -1px 2px #1AE6E6;}
-	</style>
+	<link rel="stylesheet" type="text/css" href="../css/loginRegi.css">
 
 	<script src="../js/jquery-3.2.1.js"></script>
 	<script src="../lib/bootstrap-3.3.7/dist/js/bootstrap.js"></script>
@@ -28,6 +18,65 @@
 		jQuery($=>{
 			$('.header').load('../html/loginheader.html');
 			$('.footer').load('../html/innerfoot.html');
+
+			var num=randomNumber(1000,9999);
+			$('.identity').val(`${num}`);
+			function panding(){
+
+				var phone=$('.phone ').val();
+			
+				if(!/^1[3-9]\d{9}$/.test(phone)){
+					alert('手机号不合法');
+					return false;
+				}
+
+				var password=$('.password ').val();
+				if(!/^\S{6,20}$/.test(password)){
+					alert('密码不能有空格');
+					return false;
+				}
+
+				var confirmpassword=$('.cofirmwpassword').val();
+					console.log(password,confirmpassword);
+				if(confirmpassword != password){
+					alert('两次输入密码不一致');
+					return false;
+				}
+
+				var identity=$('.identity').val();
+				var phoneidentity=$('.phoneidentity ').val();
+				if(identity!=phoneidentity){
+					alert('验证码输入有误');
+					return false;
+				}
+				return true;
+			}
+
+			$('.check').on('click',function(){
+				$(function(){
+					var state=panding();
+					console.log(state);
+					if(state){
+						var phone=$('.phone ').val();
+						var password=$('.password ').val();
+						 $.ajax({
+				            url: "../api/register.php", 
+				            type: "post",
+				            data: {phone:phone,password:password
+				          	},
+				            success:function(data){
+				               
+							window.location.reload();
+				                },
+				            error:function(e){
+				                alert('ajax hava an error');
+				                }, 
+				            complete:function(e){
+				                }
+        					});  
+					}
+				})
+			})
 		})
 	</script>
 
@@ -42,23 +91,26 @@
 			</div>
 			<div class="regi-content">		
 			<img src="http://staging.www.fruitday.com/images/common/huiyuan.jpg">
+			<span><a href="login.html">会员登录></a></span>
 			<ul>
 				<li>
-					<div><span>手机号</span></div>  <div><input type="" name=""></div>
+					<div><span>手机号</span></div>  <div ><input class="phone" type="" name=""></div>
 				</li>
 				<li>
-					<div><span>密码</span></div>    <div><input type="" name=""></div>
+					<div><span>密码</span></div>    <div ><input class="password" type="password" name=""></div>
 				</li>
 				<li>
-					<div><span>确认密码</span></div><div><input type="" name=""></div>
+					<div><span>确认密码</span></div><div ><input class="cofirmwpassword" type="password" name=""></div>
 				</li>
 				<li>
-						<div><span>验证码</span></div>  <div><input type="" name=""></div>
+						<div><span >验证码</span></div><div ><input class="identity" type="" name=""></div>
 				</li>
 				<li>
-					<div><span>手机验证码</span></div><div><input type="" name=""></div>
+					<div><span>手机验证码</span></div><div ><input class="phoneidentity" type="" name=""></div>
 				</li>
+				<li ><button class="check">注册</button><button><a href="login.html">会员登录</a></button></li>
 			</ul>
+			
 			</div>
 		</div>
 	</main>
